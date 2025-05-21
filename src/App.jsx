@@ -1,7 +1,7 @@
-import Gallery from "./components/Gallery";
+import TodoList from "./components/TodoList";
 
 const App = () => {
-  return <Gallery />;
+  return <TodoList />;
 };
 
 export default App;
