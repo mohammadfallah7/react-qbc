@@ -1,3 +1,5 @@
+// Object Destructuring
+
 const person = {
   name: "Mohammad",
   age: 22,
