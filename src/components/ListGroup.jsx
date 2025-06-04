@@ -1,19 +1,34 @@
 import { useState } from "react";
 
 const ListGroup = () => {
-  const [drink, setDrink] = useState({ title: "Americano", price: 5 });
-  const [user, setUser] = useState({
-    name: "Mohammad",
-    age: 24,
-    email: "mohammad@email.com",
-    nationality: "Iranian",
-  });
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      name: "Mohammad",
+      age: 24,
+    },
+    {
+      id: 2,
+      name: "Ali",
+      age: 28,
+    },
+  ]);
 
   const handleClick = () => {
-    setUser({
-      ...user,
-      nationality: "American",
-    });
+    // Add
+    setUsers([{ id: users.length + 1, name: "Reza", age: 30 }, ...users]);
+  };
+
+  const handleDelete = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
+  const handleUpdate = (id) => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, name: "Updated Name" } : user
+      )
+    );
   };
 
   return (
@@ -22,18 +37,20 @@ const ListGroup = () => {
         className="bg-blue-500 px-2 py-1 text-white rounded cursor-pointer"
         onClick={handleClick}
       >
-        Update
+        Add
       </button>
 
-      <ul className="flex flex-col max-w-lg mx-auto mt-3">
-        <li className="flex justify-between items-center">
-          <h2>{drink.title}</h2>
-          <span>{drink.price}</span>
-        </li>
-        <li className="flex justify-between items-center">
-          <h2>{user.name}</h2>
-          <span>{user.nationality}</span>
-        </li>
+      <ul className="flex flex-col gap-3 max-w-lg mx-auto mt-3">
+        {users.map((user) => (
+          <li className="flex justify-between items-center bg-slate-300 px-5 py-2 rounded">
+            <h2>{user.name}</h2>
+            <span>{user.age}</span>
+            <div className="flex gap-1">
+              <button onClick={() => handleDelete(user.id)}>D</button>
+              <button onClick={() => handleUpdate(user.id)}>U</button>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
